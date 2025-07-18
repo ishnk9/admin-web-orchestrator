@@ -93,7 +93,7 @@ function toggleDropdown(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
               Edit profile
             </DropdownItem>
           </li>
-          <li>
+          {/* <li>
             <DropdownItem
               onItemClick={closeDropdown}
               tag="a"
@@ -117,7 +117,7 @@ function toggleDropdown(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
               </svg>
               Account settings
             </DropdownItem>
-          </li>
+          </li> */}
           <li>
             <DropdownItem
               onItemClick={closeDropdown}
