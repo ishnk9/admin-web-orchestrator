@@ -6,6 +6,7 @@ import Input from '../input/InputField';
 import { EyeCloseIcon, EyeIcon } from '../../../icons';
 import Button from '../../ui/button/Button';
 import { UserService } from '../../../services/users/userService';
+import { toast } from 'sonner';
 
 export default function DefaultInputs() {
   const [showPassword, setShowPassword] = useState(false);
@@ -22,14 +23,19 @@ export default function DefaultInputs() {
       // The API expects: { email, name, password }
       const name = `${firstName} ${lastName}`.trim();
       const res = await UserService.createUser({ first_name: firstName, last_name: lastName, email, password });
-      alert('User created successfully!');
+      if (res && res?.data) {
+        toast.success('User created successfully!');
+      } else {
+        toast.error('Failed to create user');
+      }
+      
       // Optionally reset form
-      // setFirstName('');
-      // setLastName('');
-      // setEmail('');
-      // setPassword('');
+      setFirstName('');
+      setLastName('');
+      setEmail('');
+      setPassword('');
     } catch (err: any) {
-      alert(err?.message || 'Failed to create user');
+      toast.error(err?.message || 'Failed to create user');
     } finally {
       setLoading(false);
     }

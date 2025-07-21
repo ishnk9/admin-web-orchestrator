@@ -5,6 +5,10 @@ import AppHeader from "@/layout/AppHeader";
 import AppSidebar from "@/layout/AppSidebar";
 import Backdrop from "@/layout/Backdrop";
 import React from "react";
+import { AuthService } from "@/services/auth/authService";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import SignIn from "@/app/(full-width-pages)/(auth)/signin/page";
 
 export default function AdminLayout({
   children,
@@ -12,6 +16,35 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+  const [verified, setVerified] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const checkToken = async () => {
+      try {
+        const res: any = await AuthService.verifyToken();
+        if (res && res?.verified == 1) {
+          setVerified(true);
+        } else {
+          setVerified(false);
+        }
+      } catch (err) {
+        setVerified(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+    checkToken();
+  }, [router]);
+
+  if (loading) {
+    return <div className="flex items-center justify-center min-h-screen">Verifying access...</div>;
+  }
+
+  if (!verified) {
+    return <SignIn />;
+  }
 
   // Dynamic class for main content margin based on sidebar state
   const mainContentMargin = isMobileOpen

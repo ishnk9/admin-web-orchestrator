@@ -16,6 +16,7 @@ export const API_ENDPOINTS = {
     SUPERADMIN_LOGIN: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/superadmin/login`,
     ADMIN_LOGIN: '/api/auth/admin/login',
     GET_PROFILE: '/api/auth/profile',
+    VERIFY_TOKEN: '/api/auth/verify-token',
   },
 
   // SuperAdmin endpoints

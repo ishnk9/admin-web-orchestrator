@@ -14,12 +14,9 @@ export interface ProfileResponse {
 export class AuthService {
   // Login as superadmin
   static async superadminLogin(data: LoginRequest): Promise<ApiResponse<AuthResponse>> {
-    console.log("data", data);
-    console.log("API_ENDPOINTS.AUTH.SUPERADMIN_LOGIN", API_ENDPOINTS.AUTH.SUPERADMIN_LOGIN);
     const response = await apiClient.post(API_ENDPOINTS.AUTH.SUPERADMIN_LOGIN, data);
-    console.log("response", response);
     // Store token in localStorage
-    if (response.data && response.data.data.token) {
+    if (response && response.data && response.data.data.token) {
       setCookie('authToken', response.data.data.token);
       window.location.href = '/';
     }
@@ -31,9 +28,9 @@ export class AuthService {
   static async adminLogin(data: LoginRequest): Promise<ApiResponse<AuthResponse>> {
     const response = await apiClient.post(API_ENDPOINTS.AUTH.ADMIN_LOGIN, data);
     
-    // Store token in localStorage
-    if (response.data.success && response.data.data.token) {
+    if (response && response.data && response.data.data.token) {
       setCookie('authToken', response.data.data.token);
+      window.location.href = '/';
     }
     
     return response.data;
@@ -60,5 +57,11 @@ export class AuthService {
   // Get stored token
   static getToken(): string | null {
     return localStorage.getItem('authToken');
+  }
+
+  // Verify token
+  static async verifyToken(): Promise<ApiResponse<{ valid: boolean }>> {
+    const response = await apiClient.get(API_ENDPOINTS.AUTH.VERIFY_TOKEN);
+    return response.data;
   }
 } 

@@ -1,5 +1,6 @@
 import { getCookie } from '@/lib/helpers';
 import axios, { AxiosInstance, InternalAxiosRequestConfig, AxiosResponse } from 'axios';
+import { toast } from 'sonner';
 
 // Create axios instance with default config
 const apiClient: AxiosInstance = axios.create({
@@ -34,12 +35,14 @@ apiClient.interceptors.response.use(
     if (error.response?.status === 401) {
       // Unauthorized - redirect to login
       localStorage.removeItem('authToken');
-      window.location.href = '/signin';
+      // window.location.href = '/signin';
+      toast.error('Unauthorized');
     }
     
     if (error.response?.status === 403) {
       // Forbidden - handle access denied
-      console.error('Access denied');
+      // console.error('Access denied');
+      toast.error('Access denied');
     }
     
     if (error.response?.status === 500) {
