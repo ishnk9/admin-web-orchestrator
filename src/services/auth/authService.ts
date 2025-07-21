@@ -1,5 +1,6 @@
 import apiClient from '../axiosConfig';
 import { API_ENDPOINTS, AuthResponse, ApiResponse, Admin, SuperAdmin, User } from '../apiList';
+import { setCookie } from '../../lib/helpers';
 
 export interface LoginRequest {
   email: string;
@@ -18,8 +19,9 @@ export class AuthService {
     const response = await apiClient.post(API_ENDPOINTS.AUTH.SUPERADMIN_LOGIN, data);
     console.log("response", response);
     // Store token in localStorage
-    if (response.data.success && response.data.data.token) {
-      localStorage.setItem('authToken', response.data.data.token);
+    if (response.data && response.data.data.token) {
+      setCookie('authToken', response.data.data.token);
+      window.location.href = '/';
     }
     
     return response.data;
@@ -31,7 +33,7 @@ export class AuthService {
     
     // Store token in localStorage
     if (response.data.success && response.data.data.token) {
-      localStorage.setItem('authToken', response.data.data.token);
+      setCookie('authToken', response.data.data.token);
     }
     
     return response.data;

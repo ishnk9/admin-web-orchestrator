@@ -1,8 +1,9 @@
+import { getCookie } from '@/lib/helpers';
 import axios, { AxiosInstance, InternalAxiosRequestConfig, AxiosResponse } from 'axios';
 
 // Create axios instance with default config
 const apiClient: AxiosInstance = axios.create({
-//   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000',
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
@@ -12,7 +13,7 @@ const apiClient: AxiosInstance = axios.create({
 // Request interceptor to add auth token
 apiClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const token = localStorage.getItem('authToken');
+    const token = getCookie('authToken');
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }

@@ -59,12 +59,20 @@ export interface SuperAdmin {
 }
 
 export interface User {
-  id: string;
+  id: number;
+  admin_id: number;
   email: string;
-  name: string;
-  role: string;
+  first_name: string;
+  last_name: string;
+  status: string;
   createdAt: string;
   updatedAt: string;
+  admin: {
+    id: number;
+    name: string;
+    email: string;
+    company: string;
+  };
 }
 
 export interface AuthResponse {
@@ -79,12 +87,12 @@ export interface ApiResponse<T> {
 }
 
 export interface PaginatedResponse<T> {
-  success: boolean;
+  message: string;
   data: T[];
   pagination: {
-    page: number;
-    limit: number;
-    total: number;
-    totalPages: number;
+    current_page: number;
+    total_pages: number;
+    total_items: number;
+    items_per_page: number;
   };
 } 
