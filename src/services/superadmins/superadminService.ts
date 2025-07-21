@@ -46,20 +46,20 @@ export class SuperAdminService {
   }
 
   // Get superadmin by ID
-  static async getSuperAdminById(id: string): Promise<ApiResponse<SuperAdmin>> {
-    const response = await apiClient.get(API_ENDPOINTS.SUPERADMINS.GET_BY_ID(id));
+  static async getSuperAdminById(): Promise<ApiResponse<SuperAdmin>> {
+    const response = await apiClient.get(API_ENDPOINTS.SUPERADMINS.GET_BY_ID);
     return response.data;
   }
 
   // Update superadmin
-  static async updateSuperAdmin(id: string, data: UpdateSuperAdminRequest): Promise<ApiResponse<SuperAdmin>> {
-    const response = await apiClient.put(API_ENDPOINTS.SUPERADMINS.UPDATE(id), data);
+  static async updateSuperAdmin(data: UpdateSuperAdminRequest): Promise<ApiResponse<SuperAdmin>> {
+    const response = await apiClient.put(API_ENDPOINTS.SUPERADMINS.UPDATE, data);
     return response.data;
   }
 
   // Delete superadmin
   static async deleteSuperAdmin(id: string): Promise<ApiResponse<{ message: string }>> {
-    const response = await apiClient.delete(API_ENDPOINTS.SUPERADMINS.DELETE(id));
+    const response = await apiClient.delete(API_ENDPOINTS.SUPERADMINS.DELETE);
     return response.data;
   }
 } 

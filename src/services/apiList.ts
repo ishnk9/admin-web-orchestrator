@@ -23,9 +23,9 @@ export const API_ENDPOINTS = {
     CREATE: '/api/superadmins',
     GET_ALL: '/api/superadmins',
     LOGIN: `/api/superadmins/login`,
-    GET_BY_ID: (id: string) => `/api/superadmins/${id}`,
-    UPDATE: (id: string) => `/api/superadmins/${id}`,
-    DELETE: (id: string) => `/api/superadmins/${id}`,
+    GET_BY_ID: `/api/superadmins`,
+    UPDATE: `/api/superadmins`,
+    DELETE: `/api/superadmins`,
   },
 
   // User endpoints
