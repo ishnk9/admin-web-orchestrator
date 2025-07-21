@@ -3,6 +3,7 @@ import { ThemeToggleButton } from "@/components/common/ThemeToggleButton";
 import NotificationDropdown from "@/components/header/NotificationDropdown";
 import UserDropdown from "@/components/header/UserDropdown";
 import { useSidebar } from "@/context/SidebarContext";
+import { SuperAdminService } from "@/services/superadmins";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState ,useEffect,useRef} from "react";
@@ -11,6 +12,32 @@ const AppHeader: React.FC = () => {
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
 
   const { isMobileOpen, toggleSidebar, toggleMobileSidebar } = useSidebar();
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [superAdmin, setSuperAdmin] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchSuperAdmin = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const superAdminProfile = await SuperAdminService.getSuperAdminById();
+        if (superAdminProfile && superAdminProfile.data) {
+          const user = Array.isArray(superAdminProfile.data) ? superAdminProfile.data[0] : superAdminProfile.data;
+          setSuperAdmin(user);
+        } else {
+          setError("Failed to fetch profile.");
+        }
+      } catch (err: any) {
+        setError("Error fetching superadmin info.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchSuperAdmin();
+  }, []);
+
 
   const handleToggle = () => {
     if (window.innerWidth >= 1024) {
@@ -169,7 +196,7 @@ const AppHeader: React.FC = () => {
             {/* <!-- Notification Menu Area --> */}
           </div>
           {/* <!-- User Area --> */}
-          <UserDropdown /> 
+          <UserDropdown data={superAdmin} /> 
     
         </div>
       </div>

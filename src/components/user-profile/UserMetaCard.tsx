@@ -55,7 +55,7 @@ export default function UserMetaCard({ data }: { data: any }) {
               <Image
                 width={80}
                 height={80}
-                src="/images/user/owner.jpg"
+                src="https://github.com/shadcn.png"
                 alt="user"
               />
             </div>
@@ -122,11 +122,11 @@ export default function UserMetaCard({ data }: { data: any }) {
                   </div>
                   <div className="col-span-2 lg:col-span-1">
                     <Label>Email Address</Label>
-                    <Input type="text" value={email} onChange={e => setEmail(e.target.value)} />
+                    <Input disabled type="text" value={email} onChange={e => setEmail(e.target.value)} />
                   </div>
                   <div className="col-span-2">
                     <Label>Company</Label>
-                    <Input type="text" value={company} onChange={e => setCompany(e.target.value)} />
+                    <Input disabled type="text" value={company} onChange={e => setCompany(e.target.value)} />
                   </div>
                 </div>
               </div>
