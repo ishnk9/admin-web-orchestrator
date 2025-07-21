@@ -2,8 +2,9 @@ import apiClient from '../axiosConfig';
 import { API_ENDPOINTS, User, ApiResponse, PaginatedResponse } from '../apiList';
 
 export interface CreateUserRequest {
+  first_name: string;
+  last_name: string;
   email: string;
-  name: string;
   password: string;
 }
 

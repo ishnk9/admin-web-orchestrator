@@ -134,34 +134,34 @@ export default function BasicTableOne() {
             {/* Table Body */}
             <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
               {users.map((user) => (
-                <TableRow key={user.id}>
+                <TableRow key={user?.id}>
                   <TableCell className="px-5 py-4 sm:px-6 text-start">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
                         <span className="text-gray-600 dark:text-gray-300 text-sm font-medium">
-                          {user.first_name.charAt(0)}{user.last_name.charAt(0)}
+                          {user?.first_name?.charAt(0)}{user?.last_name?.charAt(0)}
                         </span>
                       </div>
                       <div>
                         <span className="block font-medium text-gray-800 text-theme-sm dark:text-white/90">
-                          {user.first_name} {user.last_name}
+                          {user?.first_name} {user?.last_name}
                         </span>
                         <span className="block text-gray-500 text-theme-xs dark:text-gray-400">
-                          ID: {user.id}
+                          ID: {user?.id}
                         </span>
                       </div>
                     </div>
                   </TableCell>
                   <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                    {user.email}
+                    {user?.email}
                   </TableCell>
                   <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
                     <div>
                       <span className="block font-medium text-gray-800 text-theme-sm dark:text-white/90">
-                        {user.admin.name}
+                        {user?.admin?.name}
                       </span>
                       <span className="block text-gray-500 text-theme-xs dark:text-gray-400">
-                        {user.admin.company}
+                        {user?.admin?.company}
                       </span>
                     </div>
                   </TableCell>
@@ -170,11 +170,11 @@ export default function BasicTableOne() {
                       size="sm"
                       color={getStatusColor(user.status)}
                     >
-                      {user.status}
+                      {user?.status}
                     </Badge>
                   </TableCell>
                   <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                    {formatDate(user.createdAt)}
+                    {formatDate(user?.createdAt)}
                   </TableCell>
                 </TableRow>
               ))}
