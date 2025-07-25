@@ -38,12 +38,18 @@ export default function AdminLayout({
     checkToken();
   }, [router]);
 
+  useEffect(() => {
+    if (!loading && !verified) {
+      router.push("/signin");
+    }
+  }, [loading, verified, router]);
+
   if (loading) {
     return <div className="flex items-center justify-center min-h-screen">Verifying access...</div>;
   }
 
   if (!verified) {
-    return <SignIn />;
+    return null; // Return null instead of navigating during render
   }
 
   // Dynamic class for main content margin based on sidebar state
