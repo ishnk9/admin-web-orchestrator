@@ -2,15 +2,19 @@ import apiClient from '../axiosConfig';
 import { API_ENDPOINTS, Admin, ApiResponse, PaginatedResponse } from '../apiList';
 
 export interface CreateAdminRequest {
-  email: string;
   name: string;
+  email: string;
   password: string;
+  company: string;
+  permissions_level: string;
 }
 
 export interface UpdateAdminRequest {
-  email?: string;
   name?: string;
+  email?: string;
   password?: string;
+  company?: string;
+  permissions_level?: string;
 }
 
 export class AdminService {

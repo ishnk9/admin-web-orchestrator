@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useSidebar } from "../context/SidebarContext";
+import { useUser } from "../context/UserContext";
 import {
   BoxCubeIcon,
   CalenderIcon,
@@ -26,77 +27,84 @@ type NavItem = {
   subItems?: { name: string; path: string; pro?: boolean; new?: boolean }[];
 };
 
-const navItems: NavItem[] = [
-  // {
-  //   icon: <GridIcon />,
-  //   name: "Dashboard",
-  //   subItems: [{ name: "Ecommerce", path: "/", pro: false }],
-  // },
-  // {
-  //   icon: <CalenderIcon />,
-  //   name: "Calendar",
-  //   path: "/calendar",
-  // },
-
-  {
-    name: "Create",
-    icon: <ListIcon />,
-    subItems: [{ name: "User", path: "/form-elements", pro: false }],
-  },
-  {
-    name: "Tables",
-    icon: <TableIcon />,
-    subItems: [{ name: "User Tables", path: "/basic-tables", pro: false }],
-  },
-  // {
-  //   name: "Pages",
-  //   icon: <PageIcon />,
-  //   subItems: [
-  //     { name: "Blank Page", path: "/blank", pro: false },
-  //     { name: "404 Error", path: "/error-404", pro: false },
-  //   ],
-  // },
-  {
-    icon: <UserCircleIcon />,
-    name: "User Profile",
-    path: "/profile",
-  },
-];
-
-const othersItems: NavItem[] = [
-  {
-    icon: <PieChartIcon />,
-    name: "Charts",
-    subItems: [
-      { name: "Line Chart", path: "/line-chart", pro: false },
-      { name: "Bar Chart", path: "/bar-chart", pro: false },
-    ],
-  },
-  {
-    icon: <BoxCubeIcon />,
-    name: "UI Elements",
-    subItems: [
-      { name: "Alerts", path: "/alerts", pro: false },
-      { name: "Avatar", path: "/avatars", pro: false },
-      { name: "Badge", path: "/badge", pro: false },
-      { name: "Buttons", path: "/buttons", pro: false },
-      { name: "Images", path: "/images", pro: false },
-      { name: "Videos", path: "/videos", pro: false },
-    ],
-  },
-  {
-    icon: <PlugInIcon />,
-    name: "Authentication",
-    subItems: [
-      { name: "Sign In", path: "/signin", pro: false },
-      { name: "Sign Up", path: "/signup", pro: false },
-    ],
-  },
-];
-
 const AppSidebar: React.FC = () => {
   const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
+  const { isSuperAdmin } = useUser();
   const pathname = usePathname();
+
+  const navItems: NavItem[] = [
+    // {
+    //   icon: <GridIcon />,
+    //   name: "Dashboard",
+    //   subItems: [{ name: "Ecommerce", path: "/", pro: false }],
+    // },
+    // {
+    //   icon: <CalenderIcon />,
+    //   name: "Calendar",
+    //   path: "/calendar",
+    // },
+
+    {
+      name: "Create",
+      icon: <ListIcon />,
+      subItems: [
+        { name: "User", path: "/form-elements", pro: false },
+        ...(isSuperAdmin ? [{ name: "Admin", path: "/create-admin", pro: false }] : []),
+      ],
+    },
+    {
+      name: "Tables",
+      icon: <TableIcon />,
+      subItems: [
+        { name: "User Tables", path: "/basic-tables", pro: false },
+        ...(isSuperAdmin ? [{ name: "Admins Table", path: "/admins-table", pro: false }] : []),
+      ],
+    },
+    // {
+    //   name: "Pages",
+    //   icon: <PageIcon />,
+    //   subItems: [
+    //     { name: "Blank Page", path: "/blank", pro: false },
+    //     { name: "404 Error", path: "/error-404", pro: false },
+    //   ],
+    // },
+    {
+      icon: <UserCircleIcon />,
+      name: "User Profile",
+      path: "/profile",
+    },
+  ];
+
+  const othersItems: NavItem[] = [
+    {
+      icon: <PieChartIcon />,
+      name: "Charts",
+      subItems: [
+        { name: "Line Chart", path: "/line-chart", pro: false },
+        { name: "Bar Chart", path: "/bar-chart", pro: false },
+      ],
+    },
+    {
+      icon: <BoxCubeIcon />,
+      name: "UI Elements",
+      subItems: [
+        { name: "Alerts", path: "/alerts", pro: false },
+        { name: "Avatar", path: "/avatars", pro: false },
+        { name: "Badge", path: "/badge", pro: false },
+        { name: "Buttons", path: "/buttons", pro: false },
+        { name: "Images", path: "/images", pro: false },
+        { name: "Videos", path: "/videos", pro: false },
+      ],
+    },
+    {
+      icon: <PlugInIcon />,
+      name: "Authentication",
+      subItems: [
+        { name: "Sign In", path: "/signin", pro: false },
+        { name: "Sign Up", path: "/signup", pro: false },
+      ],
+    },
+  ];
 
   const renderMenuItems = (
     navItems: NavItem[],

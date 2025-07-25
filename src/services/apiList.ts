@@ -41,6 +41,7 @@ export const API_ENDPOINTS = {
 
 // Type definitions for API responses
 export interface Admin {
+  permissions_level: string;
   id: string;
   email: string;
   name: string;
